@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:300&subset=latin,latin-ext" rel="stylesheet" type="text/css"/>
+
+<style>
+body
+{
+	font-family: "Source Code Pro", monospace;
+}
+
+.button
+{
+	font-family: "Source Code Pro", monospace;
+	box-shadow: 0 4px 16px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.19);
+	padding: 5px 8px;
+	margin: 5px 5px 5px 2px;
+	min-width: 40;
+}
+
+.button:disabled
+{
+	color: gray;
+	box-shadow: 0 0 0 0 rgba(0,0,0,0.2), 0 0 0 0 rgba(0,0,0,0.19);
+}
+
+.current
+{
+	background-image: linear-gradient(135deg, #80c0ff 40%, #ffffff);
+}
+
+.run
+{
+	background-color: #ff2020;
+	color: white;
+	min-width: 80
+}
+
+.output-console
+{
+	background-color: black;
+	color: lightgray;
+}
+
+.cursor { 
+	animation-name: cursor;
+	animation-iteration-count: infinite;
+	animation-timing-function: cubic-bezier(1,0,0,1);
+	animation-duration: 1s;
+	margin-left: -2px;
+}
+
+.cursor-running
+{
+	animation-duration: 0.3s;
+}
+
+@keyframes cursor { 
+  from { opacity: 1.0; } to { opacity: 0.0; }
+}
+
+</style>
+</head>
+
+<body onload='init()'>
+<title>tomb's AdventOfCode.js</title>
+<center>
+<br /><table width=1300>
+	<tr><td colspan=2><h1>AdventOfCode.js</h1></td></tr>
+	<tr><td width=50><b>Day:</b></td><td id="day" /></td></tr>
+	<tr><td><b>Year:</b></td><td id="year" /></td></tr>
+	<tr><td colspan=2><hr></td></tr>
+	<tr><td colspan=2 id="console" class="output-console" /></td></tr>
+</table>
+</center>
+
+<script>
+var repository = {};
+var console_text = "";
+var running = false;
+
+function include(file)
+{
+	var script = document.createElement('script');
+	script.src = file;
+	script.type = 'text/javascript';
+	script.defer = true;
+	document.getElementsByTagName('head').item(0).appendChild(script);
+}
+
+function add_year(year, titles)
+{
+	repository[year] = {days: {}, available: 0};
+	for (var i in titles)
+		repository[year].days[i] = {title: titles[i], solutions: []};
+}
+
+function add_solution(day, year, body, description = "")
+{
+	repository[year].days[day].solutions.push({ body: body, description: description });
+	repository[year].available += 1 << day;
+}
+
+function button_click(id)
+{
+	var old = (id <= 25) ? run_day : run_year;
+	document.getElementById("b" + old).classList.remove("current");
+	document.getElementById("b" + id).classList.add("current");
+	if (id <= 25) run_day = id; else run_year = id;
+	if (id > 25)
+	{
+		document.getElementById("b" + run_day).classList.remove("current");
+		document.getElementById("b0").classList.add("current");	
+		run_day = 0;
+	}
+
+	init_console();
+}
+
+function controls_enabled(v)
+{
+	running = !v;
+	document.getElementById("b0").disabled = !v;
+	for (var i = 1; i <= 25; i++)
+		document.getElementById("b" + i).disabled = (repository[run_year].available & (1 << i)) > 0 ? !v : true;
+
+	for (var i in repository)
+		document.getElementById("b" + i).disabled = !v;
+
+	document.getElementById("run").disabled = !v;
+	document.getElementById("speed_test").disabled = !v;
+}
+
+function init_console()
+{
+	var s = "{g}Press [RUN] to run ";
+	if (run_day == 0)
+		s += "all available " + run_year + " solutions";
+	else
+		s += "day " + run_day + " solution(s) of " + run_year;
+	s += "{d}";
+
+	console_clear();
+	console_print(s);
+}
+
+function console_clear()
+{
+	console_text = "";
+}
+
+function console_print(s)
+{
+	console_text += s + "<br/>";
+	console_update();
+}
+
+function console_update()
+{
+	var s = console_text
+		.replaceAll("{r}", "<span style='color:#FF6060'>")
+		.replaceAll("{g}", "<span style='color:lightgreen'>")
+		.replaceAll("{w}", "<span style='color:white'>")
+		.replaceAll("{y}", "<span style='color:yellow'>")
+		.replaceAll("{d}", "</span>");
+
+	s += "<span class='cursor";
+	if (running)
+		s += " cursor-running";
+	s += "'>|</span>";
+
+	var count = s.split("<br/>").length - 1;
+	for (var i = count; i < 20; i++)
+		s += "<br />";
+
+	document.getElementById("console").innerHTML = "<b>" + s + "</b>";
+}
+
+function load_input(year, day)
+{
+	var contents = '';
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function()
+	{
+		if (xmlhttp.status == 200 && xmlhttp.readyState == 4)
+		{
+			contents = xmlhttp.responseText;
+		}
+	};
+
+	var d = day.toString();
+	if (d.length < 2)
+		d = "0" + d;
+
+	xmlhttp.open("GET","input/" + year + "_" + d + ".txt",false);
+	xmlhttp.send();
+
+	var input = contents.split("\n");
+	while (input[input.length - 1] == "") input.pop();
+	if (input.length == 1)
+		input = input[0];
+
+	return input;
+}
+
+function exec_time(ms)
+{
+	var s = "{y}";
+	if (ms == 0) s += "~0"; else s += ms;
+	if (s.indexOf('.') > -1)
+	{
+		var i = Math.round(ms*1e6)/1e6;
+		s = i.toString();
+		s = s.substr(0, 8);
+		while (s[s.length - 1] == '0') s = s.substr(0, s.length - 1);
+		while (s[s.length - 1] == '.') s = s.substr(0, s.length - 1);
+		s = "{y}" + s;
+	}
+
+	s += " ms{d}";
+	return s;
+}
+
+function process_output(all, current)
+{
+	if (Array.isArray(current))
+		for (var i = 0; i < current.length; i++)
+			all.push(current[i]);
+	else
+		all.push(current);
+}
+
+function print_output(ts, result, count)
+{
+	for (var i = 0; i < result.length; i++)
+		console_print(result[i]);
+
+	var s = (count > 0) ? "Average execution time = " : "Execution time = ";
+	if (ts.length > 1)
+		s += exec_time(ts[0] + ts[1]) + " (" + exec_time(ts[0]) + " / " + exec_time(ts[1]) + ")";			
+	else
+		s += exec_time(ts[0]);
+
+	if (count > 1)
+		s += " (results of " + count + " executions)";
+
+	console_print(s);
+}
+
+function execute(ts, output, body, input)
+{
+	if (body.both_parts != undefined)
+	{
+		const t0 = performance.now();
+		process_output(output, body.both_parts(input));
+		const t1 = performance.now();
+		ts.push(t1 - t0);
+	}
+
+	if (body.part_one != undefined)
+	{
+		const t0 = performance.now();
+		process_output(output, body.part_one(input));
+		const t1 = performance.now();
+		ts.push(t1 - t0);
+	}
+
+	if (body.part_two != undefined)
+	{
+		const t0 = performance.now();
+		process_output(output, body.part_two(input));
+		const t1 = performance.now();
+		ts.push(t1 - t0);
+	}
+}
+
+function arrays_equal(a, b)
+{
+    return a.length === b.length && a.every((val, index) => val === b[index]);
+}
+
+function execute_day(year, day, speed_test)
+{
+	var input = load_input(year, day);
+
+	for (var i = 0; i < repository[year].days[day].solutions.length; i++)
+	{
+		var ts = [];
+		var output = [];
+		var count = 0;
+
+		if (speed_test)
+		{
+			var t = [];
+			var reference_input = input;
+			var reference_output = [];
+			var first_run = true;
+			const t0 = performance.now();
+			while (true)
+			{
+				ts = [];
+				output = [];
+				input = reference_input;
+				execute(ts, output, repository[year].days[day].solutions[i].body, input);
+				count++;
+
+				if (first_run)
+				{
+					first_run = false;
+					reference_output = output;
+
+					for (var j = 0; j < ts.length; j++)
+						t.push([]);
+				}
+				else
+				{
+					if (!arrays_equal(output, reference_output))
+					{
+						console_print("{r}ERROR: Different results obtained in successive executions{d}");
+						break;
+					}
+				}
+
+				for (var j = 0; j < ts.length; j++)
+					t[j].push(ts[j]);
+
+				const t1 = performance.now();
+				if (count >= 10 && t1 - t0 > 10000)
+				{
+					var min_k = Math.floor(count / 10);
+					var max_k = count - min_k;
+
+					for (var j = 0; j < t.length; j++)
+					{
+						t[j].sort();
+
+						c = 0;
+						ts[j] = 0.0;
+						for (var k = min_k; k < max_k; k++)
+						{
+							ts[j] += t[j][k];
+							c++;
+						}
+
+						ts[j] /= c;
+					}
+
+					break;
+				}
+			}
+		}
+		else
+			execute(ts, output, repository[year].days[day].solutions[i].body, input);
+
+		print_output(ts, output, count);
+	}
+}
+
+function sleep(ms)
+{
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function run()
+{
+	controls_enabled(false);
+
+	console_clear();
+	console_print("{w}AdventOfCode.js: " + run_year + " Puzzle Solutions{d}, copyright(c) 2022 by {y}TomB{d}");
+	var speed_test = document.getElementById("speed_test").checked;
+	if (speed_test)
+	{
+		console_print("{y}Warning:{d} In execution speed test mode each puzzle solution is run at least ten times and at least for ten seconds.");
+		console_print("It may take some time to obtain all results, please be patient. 10% of the highest and the lowest time measurements");
+		console_print("are dropped, the average time of all remaining is printed. Repeatability of results is checked after each execution.");
+	}
+
+	var minday = (run_day == 0) ? 1 : run_day;
+	var maxday = (run_day == 0) ? 25 : run_day;
+	for (var day = minday; day <= maxday; day++)
+	{
+		if ((repository[run_year].available & (1 << day)) > 0)
+		{
+			console_print("{g}" + repository[run_year].days[day].title + "{d}");
+
+			await sleep(25);
+			execute_day(run_year, day, speed_test);
+		}
+	}
+
+	controls_enabled(true);
+	console_print("Done.");
+}
+
+function init()
+{
+	var day_buttons = "";
+	for (var i = 0; i <= 25; i++)
+	{
+		day_buttons += "<button class='button' id='b" + i + "' onclick='button_click(" + i + ")'><b>";
+		if (i == 0) day_buttons += "ALL"; else day_buttons += i;
+		day_buttons += "</b></button>";
+	}
+
+	var year_buttons = "";
+	for (var i in repository)
+	{
+		year_buttons += "<button class='button' id='b" + i + "' onclick='button_click(" + i + ")'><b>" + i + "</b></button>";
+	}
+
+	year_buttons += "<button class='button' id='run' onclick='run()'><b>RUN</b></button>";
+	year_buttons += "<span>&nbsp </span><input type='checkbox' id='speed_test' /> execution speed testing";
+	document.getElementById("day").innerHTML = day_buttons;
+	document.getElementById("year").innerHTML = year_buttons;
+	document.getElementById("b0").classList.add("current");
+	document.getElementById("b2015").classList.add("current");
+	document.getElementById("run").classList.add("run");
+
+	run_day = 0;
+	run_year = Object.keys(repository)[0];
+	init_console();
+	controls_enabled(true);
+}
+</script>
+
+<script type="text/javascript" src="solutions.js"></script>
+
+</body>
+</html>
