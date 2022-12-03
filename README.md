@@ -4,7 +4,7 @@
 
 ## Features
 - Advent of Code 2015-2021 solutions in pure JavaScript ES6 (no external scripts needed)
-- ready to run in your favorite web browser, just click [here](AoC.html)
+- ready to run in your favorite web browser, just click [here](https://cdn.jsdelivr.net/gh/tbielak/AoC_js@blob/master/AoC.html)
 
 
 ## Solutions matrix
