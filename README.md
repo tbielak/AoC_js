@@ -47,3 +47,8 @@ I don't know how to do it :) I just use notepad to edit source files and occasio
 ## Other programming languages
 
 JavaScript isn't your favorite programming language? See some Advent of Code puzzle solutions in [C#](https://github.com/tbielak/AoC_cs), [Python](https://github.com/tbielak/AoC_py) and much more in [C++](https://github.com/tbielak/AoC_cpp)!
+
+
+## Why JavaScript?
+
+For many years (decades now?) I have occasionally used HTML to prepare simple and lightweight websites. Of course, these pages require scripts to handle buttons, checkboxes, etc. And since the introduction of classes, sets and maps into JavaScript (since ES6 version), the language has become useful, for example, for solving AoC tasks. So, why not? :) Note to myself: try replacing `var` with `let` where applicable, learn something!
