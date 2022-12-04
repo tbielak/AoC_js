@@ -46,7 +46,7 @@ I don't know how to do it :) I just use notepad to edit source files and occasio
 
 ## Other programming languages
 
-JavaScript isn't your favorite programming language? See some Advent of Code puzzle solutions in [C#](https://github.com/tbielak/AoC_cs), [Python](https://github.com/tbielak/AoC_py) and much more in [C++](https://github.com/tbielak/AoC_cpp)!
+JavaScript isn't your favorite programming language? See some Advent of Code puzzle solutions in [C#](https://github.com/tbielak/AoC_cs), [Python](https://github.com/tbielak/AoC_py), [Rust](https://github.com/tbielak/AoC_rs) and much more in [C++](https://github.com/tbielak/AoC_cpp)!
 
 
 ## Why JavaScript?
