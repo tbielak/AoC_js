@@ -3,21 +3,21 @@
 
 
 ## Features
-- Advent of Code 2015-2021 solutions in pure JavaScript ES6 (no external scripts needed)
+- Advent of Code 2015-2022 solutions in pure JavaScript ES6 (no external scripts needed)
 - ready to run in your favorite web browser, just click [here](https://rawcdn.githack.com/tbielak/AoC_js/master/AoC.html)
 
 
 ## Solutions matrix
 AoC.js | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022
 ------: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--:
-Day 1 | [⭐](sources/2015/2015_01.js) | [⭐](sources/2016/2016_01.js) | [⭐](sources/2017/2017_01.js) | [⭐](sources/2018/2018_01.js) | [⭐](sources/2019/2019_01.js) | [⭐](sources/2020/2020_01.js) | [⭐](sources/2021/2021_01.js) |
-Day 2 | [⭐](sources/2015/2015_02.js) | [⭐](sources/2016/2016_02.js) | [⭐](sources/2017/2017_02.js) | [⭐](sources/2018/2018_02.js) | [⭐](sources/2019/2019_02.js) | [⭐](sources/2020/2020_02.js) | [⭐](sources/2021/2021_02.js) |
-Day 3 | [⭐](sources/2015/2015_03.js) | [⭐](sources/2016/2016_03.js) | [⭐](sources/2017/2017_03.js) | [⭐](sources/2018/2018_03.js) | [⭐](sources/2019/2019_03.js) | [⭐](sources/2020/2020_03.js) | [⭐](sources/2021/2021_03.js) |
+Day 1 | [⭐](sources/2015/2015_01.js) | [⭐](sources/2016/2016_01.js) | [⭐](sources/2017/2017_01.js) | [⭐](sources/2018/2018_01.js) | [⭐](sources/2019/2019_01.js) | [⭐](sources/2020/2020_01.js) | [⭐](sources/2021/2021_01.js) | [⭐](sources/2022/2022_01.js)
+Day 2 | [⭐](sources/2015/2015_02.js) | [⭐](sources/2016/2016_02.js) | [⭐](sources/2017/2017_02.js) | [⭐](sources/2018/2018_02.js) | [⭐](sources/2019/2019_02.js) | [⭐](sources/2020/2020_02.js) | [⭐](sources/2021/2021_02.js) | [⭐](sources/2022/2022_02.js)
+Day 3 | [⭐](sources/2015/2015_03.js) | [⭐](sources/2016/2016_03.js) | [⭐](sources/2017/2017_03.js) | [⭐](sources/2018/2018_03.js) | [⭐](sources/2019/2019_03.js) | [⭐](sources/2020/2020_03.js) | [⭐](sources/2021/2021_03.js) | [⭐](sources/2022/2022_03.js)
 
 Legend: <br />
 ⭐ = solution available (both parts) <br />
 
-Current status: **42** AoC stars covered
+Current status: **48** AoC stars covered
 
 
 ## Repository contents
