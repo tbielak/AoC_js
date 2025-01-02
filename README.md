@@ -8,16 +8,16 @@
 
 
 ## Solutions matrix
-AoC.js | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022
-------: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--:
-Day 1 | [⭐](sources/2015/2015_01.js) | [⭐](sources/2016/2016_01.js) | [⭐](sources/2017/2017_01.js) | [⭐](sources/2018/2018_01.js) | [⭐](sources/2019/2019_01.js) | [⭐](sources/2020/2020_01.js) | [⭐](sources/2021/2021_01.js) | [⭐](sources/2022/2022_01.js)
-Day 2 | [⭐](sources/2015/2015_02.js) | [⭐](sources/2016/2016_02.js) | [⭐](sources/2017/2017_02.js) | [⭐](sources/2018/2018_02.js) | [⭐](sources/2019/2019_02.js) | [⭐](sources/2020/2020_02.js) | [⭐](sources/2021/2021_02.js) | [⭐](sources/2022/2022_02.js)
-Day 3 | [⭐](sources/2015/2015_03.js) | [⭐](sources/2016/2016_03.js) | [⭐](sources/2017/2017_03.js) | [⭐](sources/2018/2018_03.js) | [⭐](sources/2019/2019_03.js) | [⭐](sources/2020/2020_03.js) | [⭐](sources/2021/2021_03.js) | [⭐](sources/2022/2022_03.js)
+AoC.js | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024
+------: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--:
+Day 1 | [⭐](sources/2015/2015_01.js) | [⭐](sources/2016/2016_01.js) | [⭐](sources/2017/2017_01.js) | [⭐](sources/2018/2018_01.js) | [⭐](sources/2019/2019_01.js) | [⭐](sources/2020/2020_01.js) | [⭐](sources/2021/2021_01.js) | [⭐](sources/2022/2022_01.js) | [⭐](sources/2023/2023_01.js) | [⭐](sources/2024/2024_01.js)
+Day 2 | [⭐](sources/2015/2015_02.js) | [⭐](sources/2016/2016_02.js) | [⭐](sources/2017/2017_02.js) | [⭐](sources/2018/2018_02.js) | [⭐](sources/2019/2019_02.js) | [⭐](sources/2020/2020_02.js) | [⭐](sources/2021/2021_02.js) | [⭐](sources/2022/2022_02.js) | [⭐](sources/2023/2023_02.js) | [⭐](sources/2024/2024_02.js)
+Day 3 | [⭐](sources/2015/2015_03.js) | [⭐](sources/2016/2016_03.js) | [⭐](sources/2017/2017_03.js) | [⭐](sources/2018/2018_03.js) | [⭐](sources/2019/2019_03.js) | [⭐](sources/2020/2020_03.js) | [⭐](sources/2021/2021_03.js) | [⭐](sources/2022/2022_03.js) | [⭐](sources/2023/2023_03.js) | [⭐](sources/2024/2024_03.js)
 
 Legend: <br />
 ⭐ = solution available (both parts) <br />
 
-Current status: **48** AoC stars covered
+Current status: **60** AoC stars covered
 
 
 ## Repository contents

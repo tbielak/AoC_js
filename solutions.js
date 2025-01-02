@@ -6,3 +6,5 @@ include('sources/2019/main.js');
 include('sources/2020/main.js');
 include('sources/2021/main.js');
 include('sources/2022/main.js');
+include('sources/2023/main.js');
+include('sources/2024/main.js');

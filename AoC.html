@@ -367,7 +367,7 @@ async function run()
 	controls_enabled(false);
 
 	console_clear();
-	console_print("{w}AdventOfCode.js: " + run_year + " Puzzle Solutions{d}, copyright(c) 2022 by {y}TomB{d}");
+	console_print("{w}AdventOfCode.js: " + run_year + " Puzzle Solutions{d}, copyright(c) 2024 by {y}TomB{d}");
 	var speed_test = document.getElementById("speed_test").checked;
 	if (speed_test)
 	{
@@ -409,16 +409,17 @@ function init()
 		year_buttons += "<button class='button' id='b" + i + "' onclick='button_click(" + i + ")'><b>" + i + "</b></button>";
 	}
 
+	run_day = 0;
+	run_year = Object.keys(repository)[Object.keys(repository).length - 1];
+
 	year_buttons += "<button class='button' id='run' onclick='run()'><b>RUN</b></button>";
 	year_buttons += "<span>&nbsp </span><input type='checkbox' id='speed_test' /> execution speed testing";
 	document.getElementById("day").innerHTML = day_buttons;
 	document.getElementById("year").innerHTML = year_buttons;
 	document.getElementById("b0").classList.add("current");
-	document.getElementById("b2015").classList.add("current");
+	document.getElementById("b" + run_year).classList.add("current");
 	document.getElementById("run").classList.add("run");
 
-	run_day = 0;
-	run_year = Object.keys(repository)[0];
 	init_console();
 	controls_enabled(true);
 }
